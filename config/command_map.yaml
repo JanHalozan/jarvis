@@ -1,0 +1,21 @@
+commands:
+  - "living room":
+    - switch:
+      - light
+      - teapot
+    - gradient:
+      - windowblinds
+      - temperature
+  - "dining room":
+    - switch:
+      - light
+  - hallway:
+    - switch:
+      - light
+    - gradient:
+      - temperature
+      - windowblinds
+  - bathroom:
+    - switch:
+      - light
+      - ventilator
