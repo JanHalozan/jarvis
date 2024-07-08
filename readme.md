@@ -78,7 +78,7 @@ Jarvis is a multithreaded app and shutting it down may have a short delay while 
 
 ### Whisper models
 
-Additional language recognition models can be downloaded from [https://ggml.ggerganov.com/](https://ggml.ggerganov.com/).
+Additional language recognition models can be downloaded from [https://ggml.ggerganov.com/](https://ggml.ggerganov.com/). I recommend placing them in `models` and you can also tweak the `default_model_path` in `speech_recognizer.rs`.
 
 ## License
 
