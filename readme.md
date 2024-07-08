@@ -3,7 +3,7 @@
 
 Jarvis is an Iron Man inspired pet project that provides a basic home automation assistant with customizable commands. It runs completely locally and doesn't need an internet connection. It knows how to turn various things (lights, appliances, ...) on or of, it can raise or lower window blinds, temperature and all sorts of other things. It is extensible and can accomodate any sort of command. It includes a quirky question answering capability powered by GPT2 that is more hilarious than useful.
 
-_I developed Jarvis solely out of interest in AI and Rust and learning more about both. It is not meant to be a home automation assistant but is very extensible and could easily be made into one._
+_I developed Jarvis solely out of interest in AI and Rust and learning more about both. It is a proof of concept automation assistant that isn't reliable but is very extensible and could easily be made improved._
 
 ## Learning about Jarvis
 
@@ -75,6 +75,10 @@ Subjects are things that actions can be performed upon. Currently supported are:
 
 To run you can use `cargo run` or `cargo run --release` for the optimized version.
 Jarvis is a multithreaded app and shutting it down may have a short delay while all auxiliary threads wind down. Depending on the models you're using it can take up a significant amount of memory to run (around 1GB).
+
+### Whisper models
+
+Additional language recognition models can be downloaded from [https://ggml.ggerganov.com/](https://ggml.ggerganov.com/).
 
 ## License
 
