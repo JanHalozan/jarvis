@@ -7,7 +7,7 @@ _I developed Jarvis solely out of interest in AI and Rust and learning more abou
 
 ## Learning about Jarvis
 
-I made an entire blog post series on how I implemented it and what I learned by doing it. It's meant to be a teaching project for other people that might be interested in a similar project. It can be found on my [janhalozan.com](https://janhalozan.com) website. The series starts with the intro post that [can be found here](https://janhalozan.com/2024/06/30/home-assistant-intro/).
+I made an entire blog post series on how I implemented it and what I learned by doing it. It's meant to be a teaching project for other people that might be interested in a similar project. It can be found on my [janhalozan.com](https://janhalozan.com) website. The series starts with the intro post at: [https://janhalozan.com/2024/07/07/home-assistant-intro/](https://janhalozan.com/2024/07/07/home-assistant-intro/).
 
 ## Installation
 
