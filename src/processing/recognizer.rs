@@ -17,7 +17,7 @@ pub fn main(chunker_rx: Receiver<Vec<f32>>, recognizer_tx: Sender<String>) {
             continue;
         }
 
-        // println!("Recognized '{}'", text);
+        println!("Recognized speech: '{}'", text);
         if recognizer_tx.send(text).is_err() {
             break;
         }
@@ -25,10 +25,12 @@ pub fn main(chunker_rx: Receiver<Vec<f32>>, recognizer_tx: Sender<String>) {
 }
 
 fn is_noise(text: &str) -> bool {
-    // All of the noise and non speech has the format [SOMETHING] so it's easier to filter out by checking for the [] symbols.
-    // Old implementation:
-    // let noise = ["[INAUDIBLE]", "[BLANK_AUDIO]", "[MUSIC PLAYING]", "[TAKE VO]", "[SOUND]", "[click]", "[CLICK]"];
-    // noise.contains(&text)
+    // All of the noise and non speech has the format [SOMETHING] or
+    // (SOMETHING) so it's easier to filter out by checking for
+    // the [] or () symbols.
 
-    text.starts_with('[') && text.ends_with(']')
+    let square_bracket = text.starts_with('[') && text.ends_with(']');
+    let round_bracket = text.starts_with('(') && text.ends_with(')');
+
+    square_bracket || round_bracket
 }

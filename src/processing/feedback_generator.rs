@@ -13,7 +13,7 @@ pub fn main(intent_rx: Receiver<Result<Intent, ClassificationFailureReason>>, fe
         model_type: rust_bert::pipelines::common::ModelType::GPT2,
         max_length: Some(30),
         min_length: 5,
-        length_penalty: 20.0,
+        length_penalty: 2.0,
         early_stopping: true,
         do_sample: false,
         num_beams: 5,
@@ -27,7 +27,7 @@ pub fn main(intent_rx: Receiver<Result<Intent, ClassificationFailureReason>>, fe
             Ok(intent) => feedback_for_intent(intent, &model),
             Err(error) => feedback_for_error(error)
         };
-        println!("Feedback message: {}", message);
+        println!("Feedback message: '{}'\n", message);
         if feedback_tx.send(message).is_err() {
             break;
         }
@@ -69,15 +69,21 @@ fn feedback_for_command(command: &Command) -> String {
 }
 
 fn answer_for_question(question: String, model: &GPT2Generator) -> String {
-    let output = model.generate(Some(&[question]), None);
+    let output = model.generate(Some(&[&question]), None);
 
     println!("Question {:?}", output);
     let empty_answer = "I don't know".to_string();
     match output {
         Ok(answer) => answer
             .first()
-            .map(|a| a.text.clone())
-            .unwrap_or_else(|| empty_answer),
+            .map(|answer| {
+                answer.text
+                .trim_start_matches(&question)
+                .split('.')
+                .next()
+                .unwrap_or(&empty_answer)
+                .to_string()
+            }).unwrap_or_else(|| empty_answer),
         Err(_) => empty_answer
     }
 }

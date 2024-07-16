@@ -20,6 +20,6 @@ pub fn main(classifier_rx: Receiver<ClassifierOutput>, executor_tx: Sender<Class
     }
 }
 
-fn execute_command(command: &Command)  {
-    println!("Executing {:?}", command);
+fn execute_command(_command: &Command)  {
+    // println!("Executing {:?}", command);
 }
