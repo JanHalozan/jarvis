@@ -52,7 +52,7 @@ pub fn main(command_rx: Receiver<String>, intent_tx: Sender<ClassifierOutput>) -
             result = Err(ClassificationFailureReason::UnrecognizedInstruction);
         } else if let Intent::Command(ref command) = intent {
             if commander.supports_command(command) {
-                println!("Instruction '{}'\nExecuting {:?}\n", instruction, intent);
+                println!("Instruction '{}'\nExecuting {:?}", instruction, intent);
                 result = Ok(intent);
             } else {
                 result = Err(ClassificationFailureReason::UnsupportedInstruction);

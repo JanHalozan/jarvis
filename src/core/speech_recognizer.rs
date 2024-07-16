@@ -19,13 +19,13 @@ extern "C" fn silent_log_callback(
 
 impl SpeechRecognizer {
     pub fn new(model_path: &str) -> Self {
-        let params = WhisperContextParameters::default();
-        let context = WhisperContext::new_with_params(model_path, params)
-            .expect("Unable to create SpeechRecognizer WhisperContext. Did you specify the correct path?");
-
         unsafe {
             whisper_rs::set_log_callback(Some(silent_log_callback), std::ptr::null_mut());
         }
+
+        let params = WhisperContextParameters::default();
+        let context = WhisperContext::new_with_params(model_path, params)
+            .expect("Unable to create SpeechRecognizer WhisperContext. Did you specify the correct path?");
 
         SpeechRecognizer {
             context
