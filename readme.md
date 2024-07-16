@@ -5,6 +5,8 @@ Jarvis is an Iron Man inspired pet project that provides a basic home automation
 
 _I developed Jarvis solely out of interest in AI and Rust and learning more about both. It is a proof of concept automation assistant that isn't reliable but is very extensible and could easily be made improved._
 
+![Jarvis at work](jarvis.gif)
+
 ## Learning about Jarvis
 
 I made an entire blog post series on how I implemented it and what I learned by doing it. It's meant to be a teaching project for other people that might be interested in a similar project. It can be found on my [janhalozan.com](https://janhalozan.com) website. The series starts with the intro post at: [https://janhalozan.com/2024/07/07/home-assistant-intro/](https://janhalozan.com/2024/07/07/home-assistant-intro/).
