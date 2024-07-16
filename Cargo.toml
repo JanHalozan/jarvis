@@ -19,7 +19,6 @@ rodio = "0.18.0"
 hound = "3.5.1"
 tokio = { version = "1.38.0", features = ["full"] }
 tokio-macros = "2.2"
-reqwest = { version = "0.12.5", features = ["blocking"] }
 bytes = "1.6"
 rust_tokenizers = "8.1.1"
 rust-bert = { git = "https://github.com/guillaume-be/rust-bert", rev = "f99bf51f532d6d2ef5dfb05e21c536897888afd4" }
