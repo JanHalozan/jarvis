@@ -1,6 +1,9 @@
 use std::sync::mpsc::{Receiver, Sender};
 
-use crate::model::{command::Command, intent::Intent};
+use anyhow::{Ok, Result};
+use rppal::gpio::Gpio;
+
+use crate::model::{command::Command, command_action::{CommandAction, CommandSwitchValue}, command_subject::CommandSubject, intent::Intent};
 
 use super::classifier::ClassifierOutput;
 
@@ -10,7 +13,7 @@ pub fn main(classifier_rx: Receiver<ClassifierOutput>, executor_tx: Sender<Class
         if let Ok(ref intent) = result {    
             match intent {
                 Intent::Command(command) => execute_command(command),
-                Intent::Question(_) => {}
+                Intent::Question(_) => { Ok(()) }
             };
         }
 
@@ -20,6 +23,38 @@ pub fn main(classifier_rx: Receiver<ClassifierOutput>, executor_tx: Sender<Class
     }
 }
 
-fn execute_command(_command: &Command)  {
+const GPIO_LIVING_ROOM: u8 = 23;
+const GPIO_HALLWAY: u8 = 24;
+
+fn execute_command(command: &Command) -> Result<()> {
+    let gpio = Gpio::new()?;
+
+    if 
+        command.location == "living room" &&
+        command.subject == CommandSubject::Light &&
+        let CommandAction::Switch(value) = command.action {
+
+        let mut pin = gpio.get(GPIO_LIVING_ROOM)?.into_output();
+        if value == CommandSwitchValue::On {
+            pin.set_high();
+        } else {
+            pin.set_low();
+        }
+    }
+
+    if 
+        command.location == "hallway" &&
+        command.subject == CommandSubject::Light &&
+        let CommandAction::Switch(value) = command.action {
+
+        let mut pin = gpio.get(GPIO_HALLWAY)?.into_output();
+        if value == CommandSwitchValue::On {
+            pin.set_high();
+        } else {
+            pin.set_low();
+        }
+    }
+
+    Ok(())
     // println!("Executing {:?}", command);
 }

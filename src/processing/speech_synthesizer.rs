@@ -1,4 +1,4 @@
-use std::{io::{Cursor, Read}, process::Stdio, sync::{mpsc::Receiver, Arc}};
+use std::{io::{Cursor, Read, Write}, process::Stdio, sync::{mpsc::Receiver, Arc}};
 
 use anyhow::{Context, Result};
 use rodio::{Decoder, OutputStream, Sink};
@@ -33,16 +33,22 @@ pub fn main(signals: Arc<JarvisSignals>, feedback_rx: Receiver<String>) -> Resul
 }
 
 fn get_audio_data(text: String) -> Result<Vec<u8>> {
-    let mut child = std::process::Command::new("tts")
-        .args(&["--text", text.trim(), "--pipe_out"])
+    let mut child = std::process::Command::new("piper")
+        .args(&["--model", "en_US-lessac-medium", "--output_raw"])
+        .stdin(Stdio::piped())
         .stdout(Stdio::piped())
-        .spawn()?;
+        .spawn()
+        .context("Failed to start Piper")?;
+
+    if let Some(stdin) = child.stdin.as_mut() {
+        stdin.write_all(text.trim().as_bytes())?;
+    }
 
     let mut audio_data = Vec::new();
     child
         .stdout
         .as_mut()
-        .context("Could not get TTS stdout.")?
+        .context("Could not get Piper stdout.")?
         .read_to_end(&mut audio_data)?;
 
     child.wait()?;

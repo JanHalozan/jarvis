@@ -1085,6 +1085,7 @@ dependencies = [
  "hound",
  "rand",
  "rodio",
+ "rppal",
  "rust-bert",
  "rust_tokenizers",
  "tch",
@@ -1823,6 +1824,15 @@ dependencies = [
  "lewton",
  "symphonia",
  "thiserror",
+]
+
+[[package]]
+name = "rppal"
+version = "0.22.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c1ce3b019009cff02cb6b0e96e7cc2e5c5b90187dc1a490f8ef1521d0596b026"
+dependencies = [
+ "libc",
 ]
 
 [[package]]
