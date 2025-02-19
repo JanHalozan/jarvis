@@ -12,7 +12,7 @@ const FRAME_SIZE: usize = (MIC_SAMPLE_RATE as f32 * WINDOW_SIZE) as usize;
 const SPEECH_ENERGY_THRESHOLD: f32 = 0.01;
 
 // How much blank time we allow in between speech pauses
-const EMPTY_FRAMES_PROCESS_THRESHOLD: i32 = 50;
+const EMPTY_FRAMES_PROCESS_THRESHOLD: i32 = 100;
 
 // Max number of windows before we flush the buffer to avoid 
 // memory allocations. At 20ms WINDOW_SIZE this is 20s of audio activity

@@ -78,6 +78,54 @@ Subjects are things that actions can be performed upon. Currently supported are:
 To run you can use `cargo run` or `cargo run --release` for the optimized version.
 Jarvis is a multithreaded app and shutting it down may have a short delay while all auxiliary threads wind down. Depending on the models you're using it can take up a significant amount of memory to run (around 1GB).
 
+### Setting up on a Raspberry Pi 5
+
+_Note that these are mostly internal notes so that I could get the thing running on a Raspberry Pi 5. And they're mostly here for my future reference but if they're useful to you feel free to make sense of them._
+
+Env variables:
+
+```shell
+# Make sure the following env variables are set:
+export LIBTORCH_USE_PYTORCH=1
+export LIBTORCH_BYPASS_VERSION_CHECK=1
+export LD_LIBRARY_PATH=/home/jarvis/.virtualenvs/torch/lib/python3.11/site-packages/torch/lib:/home/jarvis/.virtualenvs/torch/lib/python3.11/site-packages/torch.libs:/lib/aarch64-linux-gnu
+```
+
+Installation (might be incomplete):
+
+```shell
+sudo apt-get update
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Install rust
+sudo apt install -y libssl-dev pkg-config
+sudo apt install -y libasound2-dev
+sudo apt install -y libclang
+sudo apt install -y libclang-dev clang
+sudo apt install -y cmake
+
+sudo apt install -y python3-virtualenv
+sudo apt install -y python3-virtualenvwrapper
+echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.bashrc
+echo "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh" >> ~/.bashrc
+source ~/.bashrc
+mkvirtualenv torch
+
+workon torch
+pip3 install setuptools numpy Cython
+pip3 install requests
+pip3 install torch==2.4.1 torchvision==0.19.1 --index-url https://download.pytorch.org/whl/cpu
+```
+
+Running:
+
+```shell
+# Ensure you've set the env variables
+
+# Activate the venv for python
+workon torch
+
+cargo run
+```
+
 ### Whisper models
 
 Additional language recognition models can be downloaded from [https://ggml.ggerganov.com/](https://ggml.ggerganov.com/). I recommend placing them in `models` and you can also tweak the `default_model_path` in `speech_recognizer.rs`.
