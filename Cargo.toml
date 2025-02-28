@@ -25,5 +25,4 @@ rust-bert = { git = "https://github.com/guillaume-be/rust-bert", rev = "f99bf51f
 tch = "0.15.0"
 rand = "0.8.0"
 anyhow = "1.0.68"
-rppal = "0.22.1"
 pv_porcupine = "*"

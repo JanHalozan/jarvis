@@ -35,7 +35,7 @@ impl SpeechRecognizer {
     pub fn default_model_path() -> String {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("models")
-            .join("ggml-model-whisper-small.en.bin")
+            .join("ggml-model-whisper-tiny.en.bin")
             .to_str()
             .expect("No speech recognizer model found at the default path.")
             .to_owned()
